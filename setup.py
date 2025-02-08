@@ -1,0 +1,22 @@
+from setuptools import find_packages, setup
+from typing import List
+
+def get_requirements(file_path: str) -> List[str]:
+    """Reads requirements.txt and returns a list of dependencies."""
+    hyphen_e_dot = "-e ."
+    requirements = []
+    with open(file_path, "r", encoding="utf-8") as file_obj:
+        requirements = file_obj.readlines()  # ✅ Read file properly
+        requirements = [req.strip() for req in requirements]  # ✅ Remove newlines and spaces
+        if hyphen_e_dot in requirements:
+            requirements.remove(hyphen_e_dot)  # ✅ Remove '-e .' if present
+    return requirements
+
+setup(
+    name="mlproject",
+    version="0.0.1",
+    author="anshu",
+    author_email="anshujindal2022@gmail.com",
+    packages=find_packages(),
+    install_requires=get_requirements("requirements.txt"),
+)
